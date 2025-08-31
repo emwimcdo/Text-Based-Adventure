@@ -4,6 +4,7 @@ import time
 import subprocess
 import json
 import webbrowser
+import os
 from pathlib import Path
 import pygetwindow as pg
 import tkinter as tk
@@ -125,6 +126,8 @@ items = {
     }
     
 }
+
+savePath = os.path.join(os.path.expanduser("~"), "save.json") # type: ignore
 
 locations = {
     "startingSquare": {
@@ -731,10 +734,8 @@ def handleAction(action):
     if visit:
         visit["did"] = True
         # print(locations["short man"]["visited"])
-    '''
-    with open("save.json", "w") as f:
+    with open(savePath, "w") as f:
         json.dump([room, inventoryItems, gold, locations], f, indent=4) # type: ignore
-    '''
     inventoryItems[0] = f"{gold} gold"
     newText = ""
     for i in inventoryItems:
