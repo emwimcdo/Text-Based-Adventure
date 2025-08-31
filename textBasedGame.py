@@ -58,7 +58,18 @@ items = {
         "sellPrice": 0.7,
         "useDescription": "You rip a piece of raw pork off a bone. Disgusting. Now you have Dysentary.",
         "useFunction": lambda: replaceItem("Pork", "Bone")
-    }
+    },
+    "Beef": {
+        "sellPrice": 0.8,
+        "useDescription": "You consume cow. Raw. Dysentary!",
+        "useFunction": lambda: replaceItem("Beef", "Bone")
+    },
+    "Potato": {
+        "sellPrice": 0.3,
+        "useDescription": "You take a large bite out of a raw potato. Yummy!",
+        "useFunction": lambda: removeFromInventory("Potato")
+    },
+    "Tomato": {}
 }
 
 locations = {
