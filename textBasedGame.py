@@ -13,63 +13,117 @@ import textwrap
 items = {
     "Overpriced Apple": {
         "sellPrice": 0.4,
+        "itemDescription": "A super overpriced apple. If you tilt it juuust right, you can see bad descisions reflected in its surface.",
         "useDescription": "Hope it tasted good.",
         "useFunction": lambda: removeFromInventory("Overpriced Apple")
         },
     "+3 Sword": {
         "sellPrice": 100,
+        "itemDescription": "Hey! You aren't supposed to have that! Give it back! That's a secret! Don't kill the man!",
         "useDescription": "Don't cut yourself!"
         },
     "Prison Garb": {
         "sellPrice": -5,
+        "itemDescription": "An orange jumpsuit. You are a prisoner. Imagine. TOTALLY sell this ; ).",
         "useDescription": "You put them on, but it just made you depressed."
         },
     "Milk": {
         "sellPrice": 0.9,
+        "itemDescription": "A glass bottle of slightly old milk. Yum.",
         "useDescription": "You drink some nice, spoiled, rotten milk. Just kidding.",
-        "useFunction": lambda: removeFromInventory("Milk")
+        "useFunction": lambda: replaceItem("Milk", "Bottle")
     },
     "Bread Loaf": {
         "sellPrice": 0.9,
+        "itemDescription": "A loaf of bread wrapped in leaves.",
         "useDescription": "You eat a loaf of bread.",
         "useFunction": lambda: removeFromInventory("Bread Loaf")
     },
     "Cheese Wedge": {
         "sellPrice": 0.5,
+        "itemDescription": "A whole wedge of cheese!!",
         "useDescription": "You eat a wedge of cheese.",
         "useFunction": lambda: removeFromInventory("Cheese Wedge")
     },
     "Apple": {
         "sellPrice": 0,
+        "itemDescription": "An apple.",
         "useDescription": "You eat a nice juicy Red Delicious.",
-        "useFunction": lambda: removeFromInventory("Apple")
+        "useFunction": lambda: replaceItem("Apple", "Apple Core")
     },
     "Kebab": {
         "sellPrice": 0.6,
+        "itemDescription": "A skewer with some meat and vegetables on it.",
         "useDescription": "You eat a nice yummy kebab.",
         "useFunction": lambda: replaceItem("Kebab", "Stick")
     },
     "Hardtack": {
         "sellPrice": 0.07,
+        "itemDescription": "A hard, dry buiscut containing enough food for a day. If you are fine with starving.",
         "useDescription": "You take a bite of hardtack. It doesn't taste great.",
         "useFunction": lambda: removeFromInventory("Hardtack")
     },
     "Pork": {
         "sellPrice": 0.7,
+        "itemDescription": "A chunk of raw meat, straight from the pig.",
         "useDescription": "You rip a piece of raw pork off a bone. Disgusting. Now you have Dysentary.",
         "useFunction": lambda: replaceItem("Pork", "Bone")
     },
     "Beef": {
         "sellPrice": 0.8,
+        "itemDescription": "A chunk of raw meat, straight from the cow.",
         "useDescription": "You consume cow. Raw. Dysentary!",
         "useFunction": lambda: replaceItem("Beef", "Bone")
     },
     "Potato": {
         "sellPrice": 0.3,
+        "itemDescription": "A wonderful potato! The possibilities!",
         "useDescription": "You take a large bite out of a raw potato. Yummy!",
         "useFunction": lambda: removeFromInventory("Potato")
     },
-    "Tomato": {}
+    "Tomato": {
+        "sellPrice": 0.8,
+        "itemDescription": "A juicy red tomato the size of your fist",
+        "useDescription": "You take a nice big bite of raw tomato.",
+        "useFunction": lambda: removeFromInventory("Tomato")
+    },
+    "Tub of Butter": {
+        "sellPrice": 0.1,
+        "itemDescription": "A tub of yellow butter. DON'T EAT IT!",
+        "useDescription": "THAT IS SO DISGUSTING! WHY??",
+        "useFunction": lambda: removeFromInventory("Tub of Butter")
+    },
+    "Bone": {
+        "sellPrice": 0.4,
+        "itemDescription": "A bone, from something. Probably what you just ate.",
+        "useDescription": "You give the bone to a nearby dog.",
+        "useFunction": lambda: removeFromInventory("Bone")
+    },
+    "Bottle": {
+        "sellPrice": 0.3,
+        "itemDescription": "A glass bottle, perfect for putting a ship in.",
+        "useDescription": "You throw the bottle really far and hear the satisfying broken glass crunch.",
+        "useFunction": lambda: removeFromInventory("Bottle")
+    },
+    "Apple Core": {
+        "sellPrice": 0,
+        "itemDescription": "A really nice apple core.",
+        "useDescription": "You eat the whole apple core. ZERO WASTE ZERO WASTE ZERO WASTE WHOOO!",
+        "useFunction": lambda: replaceItem("Apple Core", "Apple Seeds")
+    },
+    "Stick": {
+        "sellPrice": 0.1,
+        "itemDescription": "A nice big stick. Biggus Stickus? Say that five times fast.",
+        "useDescription": "You throw the stick, but no dogs are in sight. :-(",
+        "useFunction": lambda: removeFromInventory("Stick")
+    },
+    "Apple Seeds": {
+        "sellPrice": 0.09,
+        "itemDescription": "Some apple seeds! Might as well call you Jhonny.",
+        "useDescription": "You plant some seeds in the ground, hoping for a beautiful tree to grow there.",
+        "useFunction": lambda: removeFromInventory("Apple Seeds")
+    }
+    
 }
 
 locations = {
@@ -371,7 +425,8 @@ They pulled you out of the cart, handed you to the warden, and got their money. 
                     "item": "Overpriced Apple",
                     "price": 0.5
                 },
-                },
+                "next": "busyMarket"
+            },
             "west": {
                 "text": "You walk back to the square.",
                 "next": "startingSquare"
@@ -384,7 +439,7 @@ They pulled you out of the cart, handed you to the warden, and got their money. 
     "foodseller": {
         "description": """\
             This is obviously a food cart. You see plenty of food items including MILK for 1 gold, BREAD for 1 gold, CHEESE for 0.8 gold, APPLE for 0.1 gold, KEBAB for 1 gold, HARDTACK for 0.2 gold,
-            PORK for 1 gold, BEEF for 1 gold, POTATO for 0.5 gold, TOMATO for 1 gold, and BUTTER for 0.3 gold.
+            PORK for 1 gold, BEEF for 1 gold, POTATO for 0.5 gold, TOMATO for 1 gold, and BUTTER for 0.3 gold. You can also LEAVE.
             """,
         "milk": {
             "success": "You buy some milk",
@@ -578,8 +633,53 @@ def runRoom(room):
     desc = locations[room].get("description", "ERR0R: DESCRIPTI0N N0T F0UND")
     setDescription(desc)
     
+def use(item):
+    global items
+    
+    found = None
+    
+    for i in inventoryItems:
+        if item.strip().lower() == i.strip().lower():
+            found = i
+            break
+    else :
+        setDescription(f"You don't have {item}. Reread your inventory.")
+        runContinue()
+        return
+    if found:
+        setDescription(items[found].get("useDescription", f"You use {found}"))
+        if "useFunction" in items[found]:
+            items[found]["useFunction"]()
+        runContinue()
+        
+def inspect(item):
+    global items
+        
+    found = None
+    
+    for i in inventoryItems:
+        if item.strip().lower() == i.strip().lower():
+            found = i
+            break
+    else:
+        setDescription(f"You don't have {item}. Please double check you inventory.")
+        runContinue()
+        return
+        
+    if found:
+        setDescription(items[found]["itemDescription"])
+        runContinue()
+
 def handleAction(action): 
     global room, inventoryItems, locations, continueStory
+    
+    if "use" in action.strip().lower():
+        use(action.strip().lower().replace("use", "").strip())
+        return
+    
+    if "inspect" in action.strip().lower():
+        inspect(action.lower().strip().replace("inspect", "").strip())
+        return
     
     currentAction = locations.get(room, {})
     result = currentAction.get(action)
@@ -603,7 +703,7 @@ def handleAction(action):
     if visited:
         setDescription(locations[nextRoom]["visited"].get("newDescription", "Odd. Not there anymore."))
         room = visit.get("back", "startingSquare")
-        window.after(5000, lambda: runRoom(room))
+        runContinue()
         return
     if buyI:
         if buy(buyI["price"], buyI["item"]):
