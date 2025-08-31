@@ -596,6 +596,7 @@ if Path(savePath).exists():
 
 window = tk.Tk()
 window.title("Text-Based Adventure")
+window.iconbitmap("appleLogo.ico")
 window.geometry("2000x500")
 
 for col in range(3):
