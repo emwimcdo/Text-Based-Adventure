@@ -1,6 +1,6 @@
 ("C:\\Users\\Emil\\OneDrive\\Emil's Important Stuff\\Code\\Emil's "
  'Code\\Text-Based Adventure\\Text-Based-Adventure\\dist\\textBasedGame.exe',
- True,
+ False,
  False,
  False,
  ["C:\\Users\\Emil\\OneDrive\\Emil's Important Stuff\\Code\\Emil's "
@@ -3098,8 +3098,8 @@
  [],
  False,
  False,
- 1756662606,
- [('run.exe',
-   'C:\\Users\\Emil\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
+ 1756662691,
+ [('runw.exe',
+   'C:\\Users\\Emil\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
  'C:\\Users\\Emil\\AppData\\Local\\Programs\\Python\\Python313\\python313.dll')
