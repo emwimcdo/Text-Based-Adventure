@@ -586,8 +586,8 @@ gold = 2
 
 inventoryItems = [f"{gold} gold"]
 
-if Path("save.json").exists():
-    with open("save.json", "r") as f:
+if Path(savePath).exists():
+    with open(savePath, "r") as f:
         data = json.load(f)
         room = data[0]
         inventoryItems = data[1]
